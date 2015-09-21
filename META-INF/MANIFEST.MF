@@ -1,0 +1,16 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: SimpleCommand
+Bundle-SymbolicName: simpleCommand;singleton:=true
+Bundle-Version: 1.0.0.qualifier
+Bundle-Activator: simplecommand.Activator
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ org.eclipse.core.resources;bundle-version="3.9.1",
+ org.eclipse.jdt.launching;bundle-version="3.7.101",
+ org.eclipse.jdt.core,
+ org.eclipse.text,
+ org.eclipse.jdt.ui
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-ActivationPolicy: lazy
+Import-Package: org.eclipse.jdt.core

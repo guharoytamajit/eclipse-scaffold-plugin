@@ -1,0 +1,24 @@
+<workspace>
+	<project name="demoProj">
+		<src>src</src>
+		<src>src2</src>
+		<javafile src="src" post-package="com.tamajit" name="Demo">
+			
+			<method>
+				public String sayHello2(String name){return "Hello "+name;}
+			</method>
+			<field>public String name2;</field>
+		</javafile>
+		<javafile src="src2" post-package="com.tamajit" name="Demo2">
+			<method>
+				public static void main(String[] args){}
+			</method>
+			<method>
+				public String sayHello(String name){return "Hello "+name;}
+			</method>
+			<field>public int age;</field>
+			<field>public String name;</field>
+		</javafile>
+	</project>
+
+</workspace>
