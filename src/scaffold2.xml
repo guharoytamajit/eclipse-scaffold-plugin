@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<workspace xmlns="http://www.w3schools.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.w3schools.com out.xsd">
+	<project>
+		<javafile name="rrt" source="rsfs" post-package="rtr">
+
+<field>sdfsdf</field>
+<method generator="rttr">sdfdfdffdf</method>
+<field>dsfdf</field>
+		</javafile>
+	</project>
+
+</workspace>

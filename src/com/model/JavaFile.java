@@ -12,22 +12,22 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class JavaFile {
 	@XmlAttribute
-	String src;
+	String source;
 	@XmlAttribute(name="post-package")
 	String postPackage;
 	@XmlAttribute
 	String name;
 	@XmlElement(name="method")
-	List<String> methods;
+	List<JavaMethod> methods;
 	@XmlElement(name="field")
 	List<String> fields;
-	public String getSrc() {
-		return src;
+	public String getSource() {
+		return source;
 	}
 
 
-	public void setSrc(String src) {
-		this.src = src;
+	public void setSource(String source) {
+		this.source = source;
 	}
 	public String getPostPackage() {
 		return postPackage;
@@ -46,11 +46,11 @@ public class JavaFile {
 		this.name = name;
 	}
 	
-	public List<String> getMethods() {
+	public List<JavaMethod> getMethods() {
 		return methods;
 	}
 
-	public void setMethods(List<String> methods) {
+	public void setMethods(List<JavaMethod> methods) {
 		this.methods = methods;
 	}
 	

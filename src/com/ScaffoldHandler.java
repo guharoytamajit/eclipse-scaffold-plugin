@@ -1,5 +1,7 @@
 package com;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,8 +24,11 @@ import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.ui.JavaUI;
 import org.eclipse.text.edits.TextEdit;
 
+import com.generator.ICodeGenerator;
 import com.model.JavaFile;
+import com.model.JavaMethod;
 import com.model.Project;
+import com.model.Template;
 import com.model.Workspace;
 
 public class ScaffoldHandler {
@@ -98,7 +103,7 @@ public class ScaffoldHandler {
 		String javaFilename = javaFile.getName();
 		String postPackage = javaFile.getPostPackage();
 		String completePackage = postPackage;
-		String src = javaFile.getSrc();
+		String src = javaFile.getSource();
 
 		// create folder by using resources package
 		IFolder folder = iProject.getFolder(src);
@@ -131,37 +136,61 @@ public class ScaffoldHandler {
 		}
 
 		ICompilationUnit cu = null;
-		
-		cu= fragment.getCompilationUnit(javaFilename + ".java");
+
+		cu = fragment.getCompilationUnit(javaFilename + ".java");
 		if (!cu.exists()) {
-		try {
+			try {
 				cu = fragment.createCompilationUnit(javaFilename + ".java",
 						"public class " + javaFilename + "{}", false, null);
-		} catch (JavaModelException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			} catch (JavaModelException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 		// create a field
 		IType itype = cu.getType(javaFilename);
-		
+
 		List<String> fields = javaFile.getFields();
 		for (String field : fields) {
-			generateField(itype,field);
+			generateField(itype, field);
 		}
-		List<String> methods = javaFile.getMethods();
-		for (String method : methods) {
-			generateMethod(itype,method);
+		List<JavaMethod> methods = javaFile.getMethods();
+		for (JavaMethod method : methods) {
+			if (method.getGenerator() != null) {
+				String methodString = generateMethod(method);
+				if (methodString != null) {
+					generateMethod(itype, generateMethod(method));
+				}
+			} else {
+				generateMethod(itype,Template.populateTemplate(method.getValue()));
+			}
 		}
 		try {
 			cu.createPackageDeclaration(completePackage, null);
 		} catch (JavaModelException e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		formatSource(cu);
+	}
+
+	private static String generateMethod(JavaMethod method) {
+		String methodString = null;
+		try {
+			Class generatorClass =  Class.forName(method.getGenerator());
+			Object generator = generatorClass.newInstance();
+			Method generateMethod = generatorClass.getDeclaredMethod(
+					"generate", new Class[] { Object.class });
+			methodString = (String) generateMethod.invoke(generator,
+					new Object());
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | NoSuchMethodException
+				| SecurityException | IllegalArgumentException
+				| InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return methodString;
 	}
 
 	private static void formatSource(ICompilationUnit cu) {

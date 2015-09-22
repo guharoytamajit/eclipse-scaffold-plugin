@@ -1,20 +1,22 @@
+<?xml version="1.0"?>
 <workspace>
-	<project name="demoProj">
+
+	<project name="demoProj" >
 		<src>src</src>
 		<src>src2</src>
-		<javafile src="src" post-package="com.tamajit" name="Demo">
+		<javafile source="src"  post-package="com.tamajit" name="Demo" >
 			
-			<method>
-				public String sayHello2(String name){return "Hello "+name;}
+			<method generator="com.generator.SampleMethodGenerator">
+				
 			</method>
 			<field>public String name2;</field>
 		</javafile>
-		<javafile src="src2" post-package="com.tamajit" name="Demo2">
+		<javafile source="src2" post-package="com.tamajit" name="Demo2">
 			<method>
-				public static void main(String[] args){}
+				public static void {{method2}}(String[] args){}
 			</method>
 			<method>
-				public String sayHello(String name){return "Hello "+name;}
+				public String {{method1}}(String name){return "Hello "+name;}
 			</method>
 			<field>public int age;</field>
 			<field>public String name;</field>

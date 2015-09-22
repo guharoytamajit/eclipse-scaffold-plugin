@@ -34,6 +34,7 @@ import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.ScaffoldHandler;
+import com.model.MessageHolder;
 import com.model.Workspace;
 
 /**
@@ -143,6 +144,8 @@ public class SampleHandler extends AbstractHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		MessageHolder.addMessage("method1", "m1");
+		MessageHolder.addMessage("method2", "m2");
 		ScaffoldHandler.mainHandler(workspace, ResourcesPlugin.getWorkspace().getRoot());
 		return null;
 	}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<xs:schema version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema"
+targetNamespace="http://www.w3schools.com"
+xmlns="http://www.w3schools.com"
+elementFormDefault="qualified"
+>
+
+
+  <xs:element name="javaFile" type="javaFile"/>
+
+  <xs:element name="javaMethod" type="javaMethod"/>
+
+  <xs:element name="project" type="project"/>
+
+  <xs:element name="workspace" type="workspace"/>
+
+  <xs:complexType name="workspace">
+    <xs:sequence>
+      <xs:element ref="project" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="project">
+   <xs:choice maxOccurs="unbounded">
+      <xs:element name="src" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="javafile" type="javaFile" minOccurs="0" maxOccurs="unbounded"/>
+    </</xs:choice>
+    <xs:attribute name="name" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="javaFile">
+    <xs:sequence>
+      <xs:element name="method" type="javaMethod" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="field" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="source" type="xs:string"/>
+    <xs:attribute name="post-package" type="xs:string"/>
+    <xs:attribute name="name" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="javaMethod">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="generator" type="xs:string"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+</xs:schema>
+
