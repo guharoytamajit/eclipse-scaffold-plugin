@@ -5,21 +5,22 @@
 		<src>src</src>
 		<src>src2</src>
 		<javafile source="src"  post-package="com.tamajit" name="Demo" >
+		<import>java.util.ArrayList</import>
+		<import>java.util.List</import>
 			
 			<method generator="com.generator.SampleMethodGenerator">
-				
 			</method>
 			<field>public String name2;</field>
+			<method>public List {{method1}}(List l){return new ArrayList();}</method>
 		</javafile>
-		<javafile source="src2" post-package="com.tamajit" name="Demo2">
-			<method>
-				public static void {{method2}}(String[] args){}
-			</method>
-			<method>
-				public String {{method1}}(String name){return "Hello "+name;}
-			</method>
-			<field>public int age;</field>
-			<field>public String name;</field>
+
+		<javafile source="src2"  post-package="com.tamajit2" name="Dem" copy="demoProj::com.tamajit.Demo" >
+		</javafile>
+		
+		<javafile source="src"  post-package="com.tamajit" name="Demo2" >
+			
+			<field copy="demoProj::com.tamajit.Demo::name2">
+			</field>
 		</javafile>
 	</project>
 

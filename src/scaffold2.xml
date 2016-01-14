@@ -5,7 +5,6 @@
 		<javafile name="rrt" source="rsfs" post-package="rtr">
 
 <field>sdfsdf</field>
-<method generator="rttr">sdfdfdffdf</method>
 <field>dsfdf</field>
 		</javafile>
 	</project>

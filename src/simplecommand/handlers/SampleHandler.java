@@ -14,6 +14,7 @@ import org.eclipse.core.commands.ExecutionException;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IWorkspace;
 import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
@@ -29,12 +30,15 @@ import org.eclipse.jdt.core.ToolFactory;
 import org.eclipse.jdt.core.formatter.CodeFormatter;
 import org.eclipse.jdt.launching.JavaRuntime;
 import org.eclipse.jdt.ui.JavaUI;
+import org.eclipse.jface.dialogs.MessageDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.text.edits.TextEdit;
 import org.eclipse.ui.IWorkbenchWindow;
 import org.eclipse.ui.handlers.HandlerUtil;
 
 import com.ScaffoldHandler;
-import com.model.MessageHolder;
+import com.model.Context;
+import com.model.MethodContext;
 import com.model.Workspace;
 
 /**
@@ -131,6 +135,9 @@ public class SampleHandler extends AbstractHandler {
 			e.printStackTrace();
 		}*/
 		
+		Context.addAttribute("shell", HandlerUtil.getActiveWorkbenchWindowChecked(event).getShell());
+		
+		
 		InputStream fis = getClass()
 			    .getResourceAsStream("../../scaffold.xml");
 		//File file = new File("scaffold.xml");
@@ -144,9 +151,10 @@ public class SampleHandler extends AbstractHandler {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		MessageHolder.addMessage("method1", "m1");
-		MessageHolder.addMessage("method2", "m2");
-		ScaffoldHandler.mainHandler(workspace, ResourcesPlugin.getWorkspace().getRoot());
+		MethodContext.addAttribute("method1", "m1");
+		
+		IWorkspace iWorkspace = ResourcesPlugin.getWorkspace();
+		ScaffoldHandler.mainHandler(workspace, iWorkspace.getRoot());
 		return null;
 	}
 }
